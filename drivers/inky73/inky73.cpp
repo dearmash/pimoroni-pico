@@ -149,7 +149,7 @@ namespace pimoroni {
   }
 
   void Inky73::update(PicoGraphics *graphics) {
-    printf("update: %d\n", reg);
+    printf("update: %d\n");
     if(graphics->pen_type != PicoGraphics::PEN_INKY7) return; // Incompatible buffer
 
     if(blocking) {
