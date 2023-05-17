@@ -26,13 +26,12 @@ namespace pimoroni {
     uint DC     = 28; // 27;
     uint SCK    = SPI_DEFAULT_SCK;
     uint MOSI   = SPI_DEFAULT_MOSI;
+    printf_ptr PPTR = NULL;
     uint RESET  = 27; //25;
 
     uint SR_CLOCK = 8;
     uint SR_LATCH = 9;
     uint SR_DATA = 10;
-
-    printf_ptr PPTR;
 
     bool blocking = false;
 
@@ -57,16 +56,15 @@ namespace pimoroni {
       ORANGE = 6,
       CLEAN = 7
     };
-    
 
     Inky73(uint16_t width, uint16_t height) : Inky73(width, height, ROTATE_0, {PIMORONI_SPI_DEFAULT_INSTANCE, SPI_BG_FRONT_CS, SPI_DEFAULT_SCK, SPI_DEFAULT_MOSI, PIN_UNUSED, 28, PIN_UNUSED}) {};
 
-    Inky73(uint16_t width, uint16_t height, SPIPins pins, uint reset=27) : Inky73(width, height, ROTATE_0, pins, reset) {};
+    Inky73(uint16_t width, uint16_t height, SPIPins pins, uint reset=27) : Inky73(width, height, ROTATE_0, pins, NULL, reset) {};
 
-    Inky73(uint16_t width, uint16_t height, Rotation rotation, SPIPins pins, uint reset=27) :
+    Inky73(uint16_t width, uint16_t height, Rotation rotation, SPIPins pins, printf_ptr pptr=NULL, uint reset=27) :
       DisplayDriver(width, height, rotation),
       spi(pins.spi),
-      CS(pins.cs), DC(pins.dc), SCK(pins.sck), MOSI(pins.mosi), RESET(reset) {
+      CS(pins.cs), DC(pins.dc), SCK(pins.sck), MOSI(pins.mosi), PPTR(pptr), RESET(reset) {
         init();
       }
 
