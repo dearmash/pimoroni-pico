@@ -13,6 +13,8 @@
 namespace pimoroni {
 
   class Inky73 : public DisplayDriver {
+  public:
+    typedef int (*printf_ptr) (const char *str, ...);
     //--------------------------------------------------
     // Variables
     //--------------------------------------------------
@@ -29,6 +31,8 @@ namespace pimoroni {
     uint SR_CLOCK = 8;
     uint SR_LATCH = 9;
     uint SR_DATA = 10;
+
+    printf_ptr PPTR;
 
     bool blocking = false;
 
@@ -53,6 +57,7 @@ namespace pimoroni {
       ORANGE = 6,
       CLEAN = 7
     };
+    
 
     Inky73(uint16_t width, uint16_t height) : Inky73(width, height, ROTATE_0, {PIMORONI_SPI_DEFAULT_INSTANCE, SPI_BG_FRONT_CS, SPI_DEFAULT_SCK, SPI_DEFAULT_MOSI, PIN_UNUSED, 28, PIN_UNUSED}) {};
 
