@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <math.h>
 #include <string.h>
+#include "py/mpprint.h"
 
 namespace pimoroni {
 
