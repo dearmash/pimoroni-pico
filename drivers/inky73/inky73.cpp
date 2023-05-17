@@ -3,7 +3,6 @@
 #include <cstdlib>
 #include <math.h>
 #include <string.h>
-#include "py/mpprint.h"
 
 namespace pimoroni {
 
@@ -49,21 +48,21 @@ namespace pimoroni {
   }
   
   void Inky73::busy_wait() {
-    mp_printf(&mp_plat_print, "busy_wait\n");
+    printf("busy_wait\n");
     while(is_busy()) {
       tight_loop_contents();
     }
   }
 
   void Inky73::reset() {
-    mp_printf(&mp_plat_print, "reset\n");
+    printf("reset\n");
     gpio_put(RESET, 0); sleep_ms(10);
     gpio_put(RESET, 1); sleep_ms(10);
     busy_wait();
   }
    
   void Inky73::init() {
-    mp_printf(&mp_plat_print, "init\n");
+    printf("init\n");
     // configure spi interface and pins
     spi_init(spi, 20'000'000);
 
@@ -83,7 +82,7 @@ namespace pimoroni {
   };
 
   void Inky73::setup() {
-    mp_printf(&mp_plat_print, "setup\n");
+    printf("setup\n");
     reset();
     busy_wait();
 
@@ -118,13 +117,13 @@ namespace pimoroni {
   }
 
   void Inky73::power_off() {
-    mp_printf(&mp_plat_print, "power_off\n");
+    printf("power_off\n");
     busy_wait();
     command(POF); // turn off
   }
 
   void Inky73::command(uint8_t reg, size_t len, const uint8_t *data) {
-    mp_printf(&mp_plat_print, "command: %d\n", reg);
+    printf("command: %d\n", reg);
     gpio_put(CS, 0);
 
     gpio_put(DC, 0); // command mode
@@ -150,7 +149,7 @@ namespace pimoroni {
   }
 
   void Inky73::update(PicoGraphics *graphics) {
-    mp_printf(&mp_plat_print, "update\n");
+    printf("update\n");
     if(graphics->pen_type != PicoGraphics::PEN_INKY7) return; // Incompatible buffer
 
     if(blocking) {

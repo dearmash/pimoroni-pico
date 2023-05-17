@@ -21,6 +21,7 @@ extern "C" {
 #include "pimoroni_i2c.h"
 #include "py/stream.h"
 #include "py/reader.h"
+#include "py/mpprint.h"
 #include "extmod/vfs.h"
 
 const std::string_view mp_obj_to_string_r(const mp_obj_t &obj) {
@@ -254,6 +255,8 @@ size_t get_required_buffer_size(PicoGraphicsPenType pen_type, uint width, uint h
 }
 
 mp_obj_t ModPicoGraphics_make_new(const mp_obj_type_t *type, size_t n_args, size_t n_kw, const mp_obj_t *all_args) {
+    mp_printf(&mp_plat_print, "make new\n");
+
     ModPicoGraphics_obj_t *self = nullptr;
 
     enum { ARG_display, ARG_rotate, ARG_bus, ARG_buffer, ARG_pen_type, ARG_extra_pins, ARG_i2c_address };
