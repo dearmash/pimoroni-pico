@@ -148,12 +148,12 @@ jobs:
       working-directory: micropython
       run: git apply $GITHUB_WORKSPACE/pimoroni-pico-${{ github.sha }}/micropython/micropython_nano_specs.patch
 
-    - name: "HACK: Pico SDK Patch"
-      if: matrix.patch == true
-      shell: bash
-      working-directory: micropython
-      run: |
-        $GITHUB_WORKSPACE/pimoroni-pico-${{ github.sha }}/micropython/board/pico-sdk-patch.sh ${{matrix.board}}
+        #    - name: "HACK: Pico SDK Patch"
+        #      if: matrix.patch == true
+        #      shell: bash
+        #      working-directory: micropython
+        #      run: |
+        #        $GITHUB_WORKSPACE/pimoroni-pico-${{ github.sha }}/micropython/board/pico-sdk-patch.sh ${{matrix.board}}
 
     - name: Configure MicroPython
       shell: bash
