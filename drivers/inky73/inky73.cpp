@@ -127,11 +127,9 @@ namespace pimoroni {
   void Inky73::command(uint8_t reg, size_t len, const uint8_t *data) {
     dprintf("command: 0x%02x\n", reg);
     dprintf("data (%d): ", len);
-    /*
-       for (size_t i=0; i<len; i++) {
-       dprintf("0x%02x, ", data[i]);
-       }
-       */
+    for (size_t i=0; i<len; i++) {
+      dprintf("0x%02x, ", data[i]);
+    }
     dprintf("\n");
     gpio_put(CS, 0);
 
@@ -180,6 +178,11 @@ namespace pimoroni {
     uint totalLength = 0;
     gpio_put(CS, 1);
     graphics->frame_convert(PicoGraphics::PEN_INKY7, [this, &totalLength](void *buf, size_t length) {
+      dprintf("graphics (%d/%d): ", length, totalLength);
+      for (size_t i=0; i<length; i++) {
+        dprintf("0x%02x, ",  ((const uint8_t*)buf)[i]);
+      }
+      dprintf("\n");            
       if (length > 0) {
         gpio_put(CS, 0);
         spi_write_blocking(spi, (const uint8_t*)buf, length);
