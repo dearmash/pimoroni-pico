@@ -1,7 +1,6 @@
 #pragma once
 
 #include <initializer_list>
-#include <functional>
 
 #include "pico/stdlib.h"
 #include "hardware/spi.h"
@@ -15,7 +14,7 @@ namespace pimoroni {
 
   class Inky73 : public DisplayDriver {
   public:
-    typedef std::function<void(const char *str, ...)> printf_ptr;
+    typedef void (*printf_ptr) (const char *str, ...);
     //--------------------------------------------------
     // Variables
     //--------------------------------------------------
@@ -27,7 +26,7 @@ namespace pimoroni {
     uint DC     = 28; // 27;
     uint SCK    = SPI_DEFAULT_SCK;
     uint MOSI   = SPI_DEFAULT_MOSI;
-    printf_ptr PPTR = nullptr;
+    printf_ptr PPTR = NULL;
     uint RESET  = 27; //25;
 
     uint SR_CLOCK = 8;
@@ -62,7 +61,7 @@ namespace pimoroni {
 
     Inky73(uint16_t width, uint16_t height, SPIPins pins, uint reset=27) : Inky73(width, height, ROTATE_0, pins, NULL, reset) {};
 
-    Inky73(uint16_t width, uint16_t height, Rotation rotation, SPIPins pins, printf_ptr pptr=nullptr, uint reset=27) :
+    Inky73(uint16_t width, uint16_t height, Rotation rotation, SPIPins pins, printf_ptr pptr=NULL, uint reset=27) :
       DisplayDriver(width, height, rotation),
       spi(pins.spi),
       CS(pins.cs), DC(pins.dc), SCK(pins.sck), MOSI(pins.mosi), PPTR(pptr), RESET(reset) {
