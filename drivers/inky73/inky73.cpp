@@ -125,7 +125,14 @@ namespace pimoroni {
   }
 
   void Inky73::command(uint8_t reg, size_t len, const uint8_t *data) {
-    dprintf("command: %d\n", reg);
+    dprintf("command: 0x%02x\n", reg);
+    dprintf("data (%d): ", len);
+    /*
+       for (size_t i=0; i<len; i++) {
+       dprintf("0x%02x, ", data[i]);
+       }
+       */
+    dprintf("\n");
     gpio_put(CS, 0);
 
     gpio_put(DC, 0); // command mode
@@ -166,6 +173,8 @@ namespace pimoroni {
     gpio_put(DC, 0); // command mode
     spi_write_blocking(spi, &reg, 1);
 
+    dprintf("command: 0x%02x\n", reg);
+    
     gpio_put(DC, 1); // data mode
 
     uint totalLength = 0;
